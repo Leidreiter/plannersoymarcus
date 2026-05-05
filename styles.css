@@ -1,0 +1,783 @@
+:root {
+    --bg: #0f1115;
+    --card: #1a1d24;
+    --text: #e6e6e6;
+    --accent: #4f8cff;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui;
+  }
+  
+  /* HEADER */
+  .app-header {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .logos-title {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 0 0 14px;
+  }
+
+  .logo {
+    width: 60px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    cursor: default;
+  }
+
+  .logo:hover {
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 768px) {
+    .logos-title {
+      gap: 8px;
+    }
+    .logo {
+      width: 42px;
+      height: 42px;
+      font-size: 18px;
+    }
+  }
+
+  /* TOOLBAR */
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ------- SEARCH BAR ------- */
+  .search-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1 1 340px;
+    max-width: 480px;
+    background: var(--card);
+    border: 1px solid #2e3342;
+    border-radius: 14px;
+    padding: 6px 8px 6px 8px;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+
+  .search-wrap:hover {
+    border-color: #3a3f4f;
+  }
+
+  .search-wrap:focus-within {
+    border-color: var(--accent);
+    background: #1f2330;
+    box-shadow:
+      0 0 0 4px rgba(79, 140, 255, 0.14),
+      0 4px 14px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Icono de búsqueda en badge cuadrado */
+  .search-icon {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(79, 140, 255, 0.12);
+    color: var(--accent);
+    border-radius: 9px;
+    font-size: 12px;
+    flex-shrink: 0;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  }
+
+  .search-wrap:focus-within .search-icon {
+    background: var(--accent);
+    color: #fff;
+    transform: scale(1.03);
+  }
+
+  #searchInput {
+    background: transparent;
+    border: none;
+    color: var(--text);
+    padding: 6px 2px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    min-width: 0;
+    flex: 1;
+    letter-spacing: 0.1px;
+  }
+
+  #searchInput::placeholder {
+    color: #6b7180;
+    transition: color 0.2s;
+  }
+
+  .search-wrap:focus-within #searchInput::placeholder {
+    color: #8a90a1;
+  }
+
+  /* Ocultar cruz nativa de Webkit/IE en input[type=search] */
+  #searchInput::-webkit-search-cancel-button,
+  #searchInput::-webkit-search-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  /* Contador de resultados como pill */
+  .search-count {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(79, 140, 255, 0.14);
+    padding: 5px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    animation: fadeInCount 0.25s ease;
+  }
+
+  .search-count:empty {
+    display: none;
+  }
+
+  @keyframes fadeInCount {
+    from { opacity: 0; transform: translateX(-4px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  /* Botón limpiar */
+  .clear-search {
+    background: #2c3242;
+    border: none;
+    color: #c4c8d4;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    border-radius: 9px;
+    font-size: 11px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+  }
+
+  .clear-search:hover {
+    background: var(--accent);
+    color: #fff;
+    transform: rotate(90deg);
+  }
+
+  .clear-search.hidden {
+    display: none;
+  }
+
+  .toolbar-actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .toolbar-actions .btn-secondary {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+  
+  /* CALENDAR */
+  .calendar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    padding: 16px;
+  }
+  
+  .month {
+    background: var(--card);
+    padding: 12px;
+    border-radius: 16px;
+    width: 100%;
+  }
+  
+  .month h3 {
+    text-transform: capitalize;
+  }
+
+  .weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+
+  .weekday {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #8a90a1;
+    padding: 4px 0;
+  }
+  
+  .days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+  }
+
+  .day.empty {
+    background: transparent;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .day.empty:hover {
+    background: transparent;
+  }
+  
+  .day {
+    position: relative;
+    padding: 8px;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #232733;
+    transition: 0.2s;
+    min-height: 34px;
+  }
+
+  .day-num {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Badge con cantidad de slots completos */
+  .day-badge {
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    font-size: 9px;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(0,0,0,0.35);
+    border-radius: 999px;
+    min-width: 14px;
+    height: 14px;
+    padding: 0 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .day-badge:empty {
+    display: none;
+  }
+
+  /* Estado: parcial (1-2 slots completos) */
+  .day.partial {
+    background: #3d3a1e;
+    box-shadow: inset 0 0 0 1px #b89b1e;
+  }
+
+  /* Estado: completo (3+ slots completos) */
+  .day.full {
+    background: #1e3d2c;
+    box-shadow: inset 0 0 0 1px #1e8f5a;
+  }
+
+  .day:hover {
+    background: var(--accent);
+  }
+
+  .day.partial:hover,
+  .day.full:hover {
+    background: var(--accent);
+    box-shadow: none;
+  }
+
+  /* SEARCH STATES */
+  .day.search-match {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    animation: pulseMatch 1.2s ease-out;
+  }
+
+  .day.search-dim {
+    opacity: 0.25;
+  }
+
+  @keyframes pulseMatch {
+    0%   { box-shadow: 0 0 0 0 rgba(79,140,255, 0.6); }
+    100% { box-shadow: 0 0 0 10px rgba(79,140,255, 0); }
+  }
+  
+  /* MODAL */
+  .modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    z-index: 1000;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .modal-content {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 16px;
+    width: 95%;
+    max-width: 1000px;
+    max-height: 95vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .modal-header h2 {
+    margin: 0;
+    font-size: 18px;
+  }
+
+  #closeModal {
+    background: transparent;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 20px;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+  }
+
+  #closeModal:hover {
+    background: #2c3242;
+  }
+
+  #captureArea {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .modal-actions {
+    margin-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .slot-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid #3a3f4f;
+    padding: 8px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.2s;
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    background: #2c3242;
+    border-color: var(--accent);
+  }
+
+  .btn-secondary:disabled {
+    cursor: not-allowed;
+  }
+
+  #captureBtn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.2s;
+  }
+
+  #captureBtn:hover {
+    filter: brightness(1.1);
+  }
+  
+  /* TABLE */
+  .planner-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  
+  .planner-table th,
+  .planner-table td {
+    border: 1px solid #333;
+    padding: 6px;
+    vertical-align: middle;
+  }
+  
+  /* INPUTS */
+  select,
+  input,
+  textarea {
+    width: 100%;
+    background: #111;
+    color: white;
+    border: none;
+    padding: 4px;
+  }
+  
+  textarea {
+    resize: none;
+  }
+  
+  /* REDES */
+  .checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    justify-items: center;
+  }
+  
+  .checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+  }
+  
+  .checkbox-group label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: #1f2330;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  
+  .checkbox-group input {
+    display: none;
+  }
+  
+  .checkbox-group i {
+    font-size: 14px;
+    color: #474747;
+  }
+  
+  /* Estado activo */
+  .checkbox-group input:checked + i {
+    color: #fff;
+  }
+  
+  /* Hover */
+  .checkbox-group label:hover {
+    background: #2c3242;
+  }
+
+/* FORMATO COLORS (VERSIÓN LEGIBLE DARK MODE) */
+.format-capcut { background: #780000; color: #fff; }
+.format-carrusel { background: #023e8a; color: #fff; }
+.format-memes { background: #ffc600; color: #fff; }
+.format-stream { background: #7b2cbf; color: #fff; }
+.format-greenscreen { background: #2a9d8f; color: #fff; }
+.format-vlog { background: #bc6c25; color: #fff; }
+.format-selfie { background: #dd2d4a; color: #fff; }
+.format-comentarios { background: #4a4e69; color: #fff; }
+.format-trend { background: #e85d04; color: #fff; }
+.format-podcast { background: #004e89; color: #fff; }
+.format-proyectos-ia { background: #d80032; color: #fff; }
+.format-portfolio { background: #3b28cc; color: #fff; }
+
+/* =======================================
+   RESPONSIVE — versión móvil
+   Modal + tabla en formato TARJETAS apiladas
+   ======================================= */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .calendar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+
+  .app-header {
+    padding: 14px;
+  }
+
+  .calendar {
+    grid-template-columns: 1fr;
+  }
+
+  .app-header h1 {
+    font-size: 20px;
+  }
+
+  /* Toolbar compacta en móvil */
+  .toolbar {
+    gap: 10px;
+  }
+
+  .search-wrap {
+    flex: 1 1 100%;
+    max-width: none;
+    padding: 5px 7px;
+    border-radius: 12px;
+  }
+
+  .search-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 11px;
+  }
+
+  #searchInput {
+    font-size: 15px; /* ≥16px para evitar zoom iOS en foco, pero 15 es aceptable acá */
+  }
+
+  .search-count {
+    font-size: 9px;
+    padding: 4px 8px;
+  }
+
+  .clear-search {
+    width: 26px;
+    height: 26px;
+  }
+
+  .toolbar-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .toolbar-actions .btn-secondary {
+    flex: 1;
+    padding: 8px 6px;
+    font-size: 11px;
+    justify-content: center;
+  }
+
+  .toolbar-actions .btn-label {
+    display: none;
+  }
+
+  .calendar {
+    grid-template-columns: 1fr;
+    padding: 10px;
+    gap: 12px;
+  }
+
+  /* Modal general en móvil */
+  .modal {
+    padding: 6px;
+    align-items: flex-start;
+  }
+
+  .modal-content {
+    padding: 14px;
+    border-radius: 14px;
+    max-height: 98vh;
+    width: 100%;
+  }
+
+  .modal-header h2 {
+    font-size: 16px;
+  }
+
+  /* Evitar scroll horizontal: tabla pasa a tarjetas */
+  #captureArea {
+    overflow-x: visible;
+  }
+
+  /* --- TABLA COMO TARJETAS --- */
+  .planner-table,
+  .planner-table thead,
+  .planner-table tbody,
+  .planner-table tr,
+  .planner-table th,
+  .planner-table td {
+    display: block;
+    width: 100%;
+  }
+
+  /* Ocultar cabeceras */
+  .planner-table thead {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+  }
+
+  .planner-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 13px;
+  }
+
+  /* Cada fila = tarjeta */
+  .planner-table tbody tr {
+    background: #232733;
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-bottom: 14px;
+    border: 1px solid #2e3342;
+  }
+
+  /* Cada celda = bloque con etiqueta */
+  .planner-table td {
+    border: none;
+    border-bottom: 1px dashed #3a3f4f;
+    padding: 8px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .planner-table td:last-child {
+    border-bottom: none;
+  }
+
+  /* Etiquetas generadas con ::before */
+  .planner-table td::before {
+    content: attr(data-label);
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #8a90a1;
+    font-weight: 600;
+  }
+
+  /* Labels por posición (orden fijo de columnas) */
+  .planner-table tbody tr td:nth-child(1)::before { content: "Hora"; }
+  .planner-table tbody tr td:nth-child(2)::before { content: "Unidad"; }
+  .planner-table tbody tr td:nth-child(3)::before { content: "Formato"; }
+  .planner-table tbody tr td:nth-child(4)::before { content: "Redes"; }
+  .planner-table tbody tr td:nth-child(5)::before { content: "Likes"; }
+  .planner-table tbody tr td:nth-child(6)::before { content: "Alcance"; }
+  .planner-table tbody tr td:nth-child(7)::before { content: "Comentarios"; }
+
+  /* Inputs más cómodos (font-size >= 16px evita zoom en iOS) */
+  .planner-table input,
+  .planner-table select,
+  .planner-table textarea {
+    width: 100%;
+    font-size: 16px;
+    padding: 8px;
+    border-radius: 8px;
+    background: #111;
+  }
+
+  .planner-table textarea {
+    min-height: 70px;
+  }
+
+  /* Redes: permitir que los 6 iconos respiren */
+  .planner-table .checkbox-group {
+    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+  }
+
+  .planner-table .checkbox-group label {
+    width: 36px;
+    height: 36px;
+  }
+
+  .planner-table .checkbox-group i {
+    font-size: 16px;
+  }
+
+  /* Botones full-width en móvil */
+  .modal-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .slot-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .btn-secondary {
+    justify-content: center;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  #captureBtn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .modal-content {
+    padding: 12px;
+  }
+
+  .modal-header h2 {
+    font-size: 14px;
+  }
+
+  .planner-table tbody tr {
+    padding: 10px;
+    margin-bottom: 12px;
+  }
+}
