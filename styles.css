@@ -206,11 +206,17 @@
   }
   
   /* CALENDAR */
+  .calendar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
   .calendar {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    padding: 16px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px 0;
   }
   
   .month {
@@ -481,6 +487,40 @@
     resize: none;
   }
   
+  /* Eliminar fondos y ajustar expansión de campos específicos */
+  .planner-table input[type="number"],
+  .planner-table textarea {
+    background: transparent;
+  }
+
+  .planner-table td:last-child {
+    padding: 0;
+  }
+
+  .planner-table textarea {
+    display: block;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    min-height: 44px;
+  }
+
+  /* FOOTER */
+  .app-footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: #8a90a1;
+    font-size: 14px;
+  }
+  .app-footer a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .app-footer a:hover {
+    text-decoration: underline;
+  }
+
   /* REDES */
   .checkbox-group {
     display: grid;
@@ -534,7 +574,7 @@
 .format-stream { background: #7b2cbf; color: #fff; }
 .format-greenscreen { background: #2a9d8f; color: #fff; }
 .format-vlog { background: #bc6c25; color: #fff; }
-.format-selfie { background: #dd2d4a; color: #fff; }
+.format-fyp { background: #dd2d4a; color: #fff; }
 .format-comentarios { background: #4a4e69; color: #fff; }
 .format-trend { background: #e85d04; color: #fff; }
 .format-podcast { background: #004e89; color: #fff; }

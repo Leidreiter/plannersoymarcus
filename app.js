@@ -25,12 +25,17 @@ function generateRandomSlot(existingRows = []) {
   const usedUnits = existingRows.map(r => r.unidad).filter(Boolean);
   const usedFormats = existingRows.map(r => r.formato).filter(Boolean);
 
+  // Seleccionar unidad
   const availableUnits = unidades.filter(u => !usedUnits.includes(u));
   const poolU = availableUnits.length > 0 ? availableUnits : unidades;
   const unidad = poolU[Math.floor(Math.random() * poolU.length)];
 
-  const availableFormats = formatos.filter(f => !usedFormats.includes(f));
-  const poolF = availableFormats.length > 0 ? availableFormats : formatos;
+  // Seleccionar formato basado en la unidad elegida (según condiciones específicas)
+  const formatosPermitidos = formatosPorUnidad[unidad] || formatos;
+  const availableFormats = formatosPermitidos.filter(f => !usedFormats.includes(f));
+  
+  // Si no quedan formatos permitidos sin usar, usamos cualquiera de los permitidos para esa unidad
+  const poolF = availableFormats.length > 0 ? availableFormats : formatosPermitidos;
   const formato = poolF[Math.floor(Math.random() * poolF.length)];
 
   return { unidad, formato };
@@ -41,14 +46,25 @@ let currentKey = null;
 
 const unidades = [
   "Soy Marcus","Lemora","Hola Mundo Store","Vida Freelance",
-  "Code Injection","Academia WP","Gato Negro", "Twitch"
+  "Code Injection", /* "Academia WP", "Gato Negro" */ "Twitch"
 ];
 
 const formatos = [
   "CapCut","Carrusel","Memes","Stream",
-  "Green Screen","Vlog","Selfie","Comentarios",
+  "Green Screen","Vlog","FYP","Comentarios",
   "Trend", "Podcast", "Proyectos-IA", "Portfolio"
 ];
+
+const formatosPorUnidad = {
+  "Soy Marcus": formatos.filter(f => f !== "Carrusel" && f !== "Podcast"),
+  "Lemora": ["CapCut", "Carrusel", "Comentarios", "Portfolio"],
+  "Hola Mundo Store": ["Carrusel", "Stream", "Green Screen", "FYP", "Comentarios", "Trend"],
+  "Vida Freelance": ["Carrusel", "Vlog", "Comentarios", "Podcast"],
+  "Code Injection": ["Memes", "Stream", "Green Screen", "FYP", "Comentarios", "Proyectos-IA", "Portfolio"],
+  "Academia WP": ["CapCut", "Carrusel", "Stream", "Comentarios", "Portfolio"],
+  "Gato Negro": ["Carrusel", "Stream", "FYP", "Comentarios"],
+  "Twitch": ["Stream", "Comentarios", "FYP"]
+};
 
 const redes = ["Instagram","TikTok","Shorts","YouTube","LinkedIn","X"];
 
@@ -223,6 +239,12 @@ function updateSlotButtons(total) {
   removeSlotBtn.disabled = total <= 1;
   removeSlotBtn.style.opacity = total <= 1 ? "0.4" : "1";
   removeSlotBtn.style.cursor = total <= 1 ? "not-allowed" : "pointer";
+
+  if (addSlotBtn) {
+    addSlotBtn.disabled = total >= 5;
+    addSlotBtn.style.opacity = total >= 5 ? "0.4" : "1";
+    addSlotBtn.style.cursor = total >= 5 ? "not-allowed" : "pointer";
+  }
 }
 
 function addSlot() {
@@ -232,6 +254,7 @@ function addSlot() {
   const rows = data[currentKey] && data[currentKey].length 
     ? [...data[currentKey]] 
     : [generateRandomSlot([])];
+  if (rows.length >= 5) return;
   rows.push(generateRandomSlot(rows));
   data[currentKey] = rows;
   saveData(data);
