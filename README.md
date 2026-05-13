@@ -1,5 +1,7 @@
 # 📅 Planner 2026
 
+![planner Preview](img/logo.svg)
+
 **Planner de contenido anual para redes sociales — offline, multi-marca y sin dependencias de servidor.**
 
 > Una PWA (Progressive Web App) que funciona 100% en el navegador. Sin bases de datos, sin cuentas, sin suscripciones. Todos los datos se guardan localmente en tu dispositivo.
