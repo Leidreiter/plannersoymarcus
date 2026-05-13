@@ -652,7 +652,7 @@ function exportPDF() {
       doc.setFillColor(35, 39, 51);
       doc.roundedRect(margin, y, pageW - margin * 2, 90, 6, 6, "FD");
 
-      doc.setTextColor(79, 140, 255);
+      doc.setTextColor(242, 78, 30);
       doc.setFont("helvetica", "bold");
       doc.setFontSize(10);
       doc.text(`SLOT ${i + 1}${r.hora ? "  ·  " + r.hora : ""}`, margin + 12, y + 18);
